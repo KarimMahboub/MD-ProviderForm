@@ -1,0 +1,53 @@
+<div class="container-sm">
+    <form class="row g-3" [formGroup]="providerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" aria-describedby="namHelp"
+                placeholder="The company's name." formControlName="name" />
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" formControlName="description" aria-describedby="descriptionHelp"
+                placeholder="The company description." ></textarea>
+        </div>
+        <div class="col-12">
+            <label for="address1" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address1" placeholder="1234 Main St" formControlName="address1" />
+            <input type="text" class="form-control" id="address2" placeholder="Apartment, studio, or floor" formControlName="address2" />
+        </div>
+        <div class="col-md-3">
+            <label for="country" class="form-label">Country</label>
+            <select id="country" class="form-select" formControlName="country">
+                <option selected>Choose...</option>
+                <option *ngFor="let country of countries;" [value]="country.id">{{country.name}}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="region" class="form-label">Region</label>
+            <select id="region" class="form-select" formControlName="region">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="postcode" class="form-label" >Zip</label>
+            <input type="text" class="form-control" id="postcode" formControlName="postcode" />
+        </div>
+        <div class="col-md-4">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" formControlName="city" />
+        </div>
+        <div class="col-md-3">
+            <label for="category" class="form-label">Category</label><br />
+            <input type="hidden" id="categoryId" [value]="category_id" formControlName="categoryId" [ngModel]="providerForm.categoryId" />
+            <p *ngFor="let cat of selected;" style="display:inline;"> {{cat.name}} > </p>
+            <select style="display:inline" *ngIf="categories && categories.length > 0" id="category" #t
+                (change)="selectCategory(t.value)">
+                <option selected>Choose...</option>
+                <option *ngFor="let category of categories;" [value]="category.id">{{category.name}}</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
